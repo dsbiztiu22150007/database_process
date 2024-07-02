@@ -1,0 +1,60 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-05-28"
+---
+```{r}
+library(tidyverse)
+
+d <- data.frame(
+name = c("太郎", "花子", "三郎", "良子", "次郎", "桜子", "四郎", "松子", "愛子"),
+school = c("南", "南", "南", "南", "南", "東", "東", "東", "東"),
+teacher = c("竹田", "竹田", "竹田", "竹田", "佐藤", "佐藤", "佐藤", "鈴木", "鈴木"),
+gender = c("男", "女", "男", "女", "男", "女", "男", "女", "女"),
+math = c(4, 3, 2, 4, 3, 4, 5, 4, 5),
+reading = c(1, 5, 2, 4, 5, 4, 1, 5, 4) )
+
+
+# 問題１
+
+library(dplyr)
+
+d |> select(name, math)
+d |> select(-gender)
+d |> slice(3:6)
+d |> arrange(name)
+d |>arrange(desc(math))
+d |>arrange(desc(math), desc(reading))
+d |>select(name, reading)
+d |>summarize(mean(math))
+d |>group_by(teacher)|>summarise(math.mean = mean(math))
+filter(d, gender == "女")|>select(math,reading)
+filter(d, gender == "男")|>select(reading)
+d|>group_by(teacher)|>filter(n()>=3)
+mutate(d,total = math + reading)
+mutate(d,math100 = math*20)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
